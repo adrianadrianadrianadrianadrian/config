@@ -6,4 +6,4 @@ highlight link cErrinBracket NONE
 hi Comment cterm=NONE gui=NONE
 hi Todo cterm=NONE gui=NONE
 hi StatusLine cterm=NONE gui=NONE
-hi NormalFloat ctermbg=darkgrey
+hi NormalFloat ctermbg=black
