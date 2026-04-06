@@ -30,6 +30,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
+vim.api.nvim_create_autocmd("Filetype", {
+    callback = function()
+        vim.opt_local.autoindent = false
+        vim.opt_local.cindent = false
+        vim.opt_local.smartindent = false
+        vim.opt_local.indentexpr = ""
+        vim.opt.cursorline = false
+    end,
+})
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -41,6 +51,7 @@ vim.diagnostic.config({ virtual_text = false })
 require("lazy").setup({
     -- Commenting
     { "numToStr/Comment.nvim", opts = {} },
+
     -- Fuzzy Finder
     {
         "nvim-telescope/telescope.nvim",
@@ -65,6 +76,7 @@ require("lazy").setup({
                 { desc = "[S]earch by [G]rep" })
         end,
     },
+
     -- LSP Configuration & Plugins
     {
         "neovim/nvim-lspconfig",
@@ -114,7 +126,9 @@ require("lazy").setup({
                         }
                     }
                 },
-                omnisharp = {},
+                omnisharp = {
+                    cmd = { "/home/adrian/.local/share/nvim/mason/bin/OmniSharp" },
+                },
                 pyright = {},
                 eslint = {},
                 jsonls = {},
@@ -123,6 +137,7 @@ require("lazy").setup({
             }
 
             require("mason").setup()
+
             local ensure_installed = vim.tbl_keys(servers or {})
             require("mason-tool-installer").setup({
                 ensure_installed =
@@ -149,7 +164,8 @@ require("lazy").setup({
             })
         end,
     },
-    -- Autocompletion
+
+    -- -- Autocompletion
     {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
@@ -198,6 +214,7 @@ require("lazy").setup({
             })
         end,
     },
+
     -- Omnisharp fun
     {
         'Hoffs/omnisharp-extended-lsp.nvim',
@@ -209,9 +226,11 @@ require("lazy").setup({
                         desc = "LSP: " .. desc
                     })
             end
+
             require('omnisharp_extended')
         end
     },
+
     {
         'prettier/vim-prettier'
     }
