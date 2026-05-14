@@ -1,6 +1,8 @@
-source $VIMRUNTIME/colors/vim.lua " Nvim: revert to Vim default color scheme
+source $VIMRUNTIME/colors/vim.lua
 let g:colors_name = 'quiet'
 let s:t_Co = &t_Co
+set list
+set listchars=trail:·
 
 :let loaded_matchparen = 1
 hi link cErrInParen NONE
